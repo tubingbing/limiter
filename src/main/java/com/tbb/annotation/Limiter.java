@@ -1,6 +1,6 @@
-package tbb.annotation;
+package com.tbb.annotation;
 
-import tbb.constant.LimiterEnum;
+import com.tbb.constant.LimiterEnum;
 
 import java.lang.annotation.*;
 

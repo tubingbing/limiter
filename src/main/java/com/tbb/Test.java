@@ -1,10 +1,10 @@
-package tbb;
+package com.tbb;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
-import tbb.annotation.Limiter;
-import tbb.constant.LimiterEnum;
+import com.tbb.annotation.Limiter;
+import com.tbb.constant.LimiterEnum;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;

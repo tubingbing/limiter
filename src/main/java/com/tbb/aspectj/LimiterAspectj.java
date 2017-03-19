@@ -1,16 +1,16 @@
-package tbb.aspectj;
+package com.tbb.aspectj;
 
+import com.tbb.algorithm.LeakyBucket;
+import com.tbb.algorithm.SimpleCount;
+import com.tbb.algorithm.SmoothCount;
+import com.tbb.algorithm.TokenBucket;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import tbb.algorithm.LeakyBucket;
-import tbb.algorithm.SimpleCount;
-import tbb.algorithm.SmoothCount;
-import tbb.algorithm.TokenBucket;
-import tbb.annotation.Limiter;
+import com.tbb.annotation.Limiter;
 
 import java.lang.reflect.Method;
 
@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 @Component
 public class LimiterAspectj {
 
-    @Pointcut("@annotation(tbb.annotation.Limiter)")
+    @Pointcut("@annotation(com.tbb.annotation.Limiter)")
     public void poincut() {
     }
 

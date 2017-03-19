@@ -1,4 +1,4 @@
-package tbb.constant;
+package com.tbb.constant;
 
 /**
  * User: tubingbing

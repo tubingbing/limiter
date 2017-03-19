@@ -1,4 +1,4 @@
-package tbb.algorithm;
+package com.tbb.algorithm;
 
 /**
  * User: tubingbing

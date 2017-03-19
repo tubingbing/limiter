@@ -1,4 +1,4 @@
-package tbb.algorithm;
+package com.tbb.algorithm;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
