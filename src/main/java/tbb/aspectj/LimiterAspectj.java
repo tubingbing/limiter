@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import tbb.algorithm.SimpleCount;
 import tbb.algorithm.SmoothCount;
 import tbb.algorithm.TokenBucket;
 import tbb.annotation.Limiter;
@@ -35,6 +36,7 @@ public class LimiterAspectj {
         long qps = limiter.qps();
         switch (limiter.type()){
             case SIMPLE_COUNT:  //简单计数
+                flag = SimpleCount.limiter(value,qps);
                 break;
             case SMOOTH_COUNT:  //平滑计数
                 flag = SmoothCount.limiter(value,qps);

@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import tbb.annotation.Limiter;
+import tbb.constant.LimiterEnum;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -17,7 +18,7 @@ import java.util.concurrent.Executors;
 @Component
 public class Test {
 
-    @Limiter(value="a",qps=20)
+    @Limiter(value="a",qps=10,type = LimiterEnum.TOKEN_BUCKET)
     public void mss(){
         System.out.println("--------------------通过");
     }
@@ -28,7 +29,7 @@ public class Test {
 
         ExecutorService service = Executors.newFixedThreadPool(4);
        final Random r = new Random();
-        service.execute(new Runnable() {
+        /*service.execute(new Runnable() {
             public void run() {
                 t.mss();
             }
@@ -37,19 +38,19 @@ public class Test {
             Thread.sleep(1100);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        for(int i=0;i<10;i++){
+        }*/
+        while(true){
             service.execute(new Runnable() {
                 public void run() {
-                   /* try {
-                        Thread.sleep(r.nextInt(100));
+                    try {
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }*/
+                    }
                     t.mss();
                 }
             });
         }
-        service.shutdown();
+        //service.shutdown();
      }
 }

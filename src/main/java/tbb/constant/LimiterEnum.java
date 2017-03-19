@@ -8,7 +8,7 @@ package tbb.constant;
 public enum LimiterEnum {
 
     SIMPLE_COUNT(1), //简单计数
-    SMOOTH_COUNT(2), //平滑计数
+    SMOOTH_COUNT(2), //平滑窗口计数
     LEAKY_BUCKET(3), //漏桶
     TOKEN_BUCKET(4); //令牌桶
 
