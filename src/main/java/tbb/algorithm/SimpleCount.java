@@ -26,7 +26,7 @@ public class SimpleCount {
                     });
 
     private static AtomicLong getAtomicLong(String key) {
-        try { 
+        try {
             long currentSecond = System.currentTimeMillis() / 1000;
             ConcurrentMap<String, AtomicLong> concurrentMap = counter.get(currentSecond);
             AtomicLong count = concurrentMap.get(key);

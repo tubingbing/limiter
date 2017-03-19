@@ -12,14 +12,14 @@ import java.util.concurrent.ConcurrentMap;
  * Time: 13:29
  */
 public class TokenBucket {
-    
-    public static final ConcurrentMap<String,RateLimiter> concurrentMap = new ConcurrentHashMap<String, RateLimiter>();
 
-    private static RateLimiter getRateLimiter(String key,long qps){
+    public static final ConcurrentMap<String, RateLimiter> concurrentMap = new ConcurrentHashMap<String, RateLimiter>();
+
+    private static RateLimiter getRateLimiter(String key, long qps) {
         RateLimiter limiter = concurrentMap.get(key);
-        if (limiter==null){
+        if (limiter == null) {
             limiter = RateLimiter.create(qps);
-            RateLimiter oldLimiter = concurrentMap.putIfAbsent(key,limiter);
+            RateLimiter oldLimiter = concurrentMap.putIfAbsent(key, limiter);
             if (oldLimiter != null) {
                 limiter = oldLimiter;
             }
@@ -27,8 +27,8 @@ public class TokenBucket {
         return limiter;
     }
 
-    public static boolean limiter(String key,long qps){
-        RateLimiter limiter = getRateLimiter(key,qps);
+    public static boolean limiter(String key, long qps) {
+        RateLimiter limiter = getRateLimiter(key, qps);
         //limiter.acquire();
         return limiter.tryAcquire();
     }

@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * User: tubingbing
@@ -26,9 +27,8 @@ public class SmoothCount {
                         }
                     });
 
-    private static AtomicLong getAtomicLong(String key) {
+    private static AtomicLong getAtomicLong(String key, long currentSecond) {
         try {
-            long currentSecond = System.currentTimeMillis() / 1000;
             ConcurrentMap<String, AtomicLong> concurrentMap = counter.get(currentSecond);
             AtomicLong count = concurrentMap.get(key);
             if (count == null) {
@@ -45,16 +45,27 @@ public class SmoothCount {
         return null;
     }
 
+    private static long getTotalCount(String key, long currentSecond) {
+        long qps = 0;
+        for (int i = 1; i < 10; i++) {
+            AtomicLong count = getAtomicLong(key, currentSecond - i);
+            if (count != null) {
+                qps += count.get();
+            }
+        }
+        return qps;
+    }
+
 
     public static boolean limiter(String key, long qps) {
-        AtomicLong count = getAtomicLong(key);
-        if (count == null) {
-            return true;
-        }
-        if (count.incrementAndGet() > qps) {
+        long currentSecond = System.currentTimeMillis() / 100; //每秒划分成10个窗口
+        //获取当前窗口的计数
+        AtomicLong count = getAtomicLong(key, currentSecond);
+        //前9次窗口的总计数
+        long totalCount = getTotalCount(key, currentSecond);
+        if (totalCount + count.incrementAndGet() > qps) {
             return false;
         }
         return true;
     }
-
 }

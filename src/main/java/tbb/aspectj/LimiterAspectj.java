@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import tbb.algorithm.LeakyBucket;
 import tbb.algorithm.SimpleCount;
 import tbb.algorithm.SmoothCount;
 import tbb.algorithm.TokenBucket;
@@ -23,31 +24,32 @@ import java.lang.reflect.Method;
 public class LimiterAspectj {
 
     @Pointcut("@annotation(tbb.annotation.Limiter)")
-    public void poincut(){
+    public void poincut() {
     }
 
     @Around("poincut()")
-    public Object round(ProceedingJoinPoint pjp) throws Throwable{
+    public Object round(ProceedingJoinPoint pjp) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
         Method method = methodSignature.getMethod();
-        Limiter limiter= method.getAnnotation(Limiter.class);
+        Limiter limiter = method.getAnnotation(Limiter.class);
         String value = limiter.value();
         boolean flag = true;
         long qps = limiter.qps();
-        switch (limiter.type()){
+        switch (limiter.type()) {
             case SIMPLE_COUNT:  //简单计数
-                flag = SimpleCount.limiter(value,qps);
+                flag = SimpleCount.limiter(value, qps);
                 break;
             case SMOOTH_COUNT:  //平滑计数
-                flag = SmoothCount.limiter(value,qps);
+                flag = SmoothCount.limiter(value, qps);
                 break;
             case LEAKY_BUCKET: //漏桶
+                flag = LeakyBucket.limiter(value, qps);
                 break;
             case TOKEN_BUCKET: //令牌桶
-                flag = TokenBucket.limiter(value,qps);
+                flag = TokenBucket.limiter(value, qps);
                 break;
             default: //默认令牌桶
-                flag = TokenBucket.limiter(value,qps);
+                flag = TokenBucket.limiter(value, qps);
                 break;
         }
         if (!flag) {

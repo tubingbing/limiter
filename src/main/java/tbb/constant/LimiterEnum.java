@@ -13,7 +13,8 @@ public enum LimiterEnum {
     TOKEN_BUCKET(4); //令牌桶
 
     public int value;
-    LimiterEnum (int value){
+
+    LimiterEnum(int value) {
         this.value = value;
     }
 
