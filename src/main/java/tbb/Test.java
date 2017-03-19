@@ -19,7 +19,7 @@ public class Test {
 
     @Limiter(value="a",qps=20)
     public void mss(){
-        System.out.println("通过");
+        System.out.println("--------------------通过");
     }
 
     public static void main(String[] args) throws Exception {

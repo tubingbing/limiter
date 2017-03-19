@@ -6,14 +6,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import tbb.LimiterTest;
+import tbb.algorithm.SmoothCount;
+import tbb.algorithm.TokenBucket;
 import tbb.annotation.Limiter;
-import tbb.constant.LimiterEnum;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicLong;
-
 
 /**
  * User: tubingbing
@@ -23,15 +20,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Aspect
 @Component
 public class LimiterAspectj {
-    private static long time = System.currentTimeMillis();
-    //是否第一次请求，是则重置当前时间
-    private static final AtomicBoolean firstRequest = new AtomicBoolean(true);
-    private static final AtomicLong fddd = new AtomicLong(0);
-    private static final AtomicLong fddd2 = new AtomicLong(0);
 
     @Pointcut("@annotation(tbb.annotation.Limiter)")
     public void poincut(){
-
     }
 
     @Around("poincut()")
@@ -40,43 +31,28 @@ public class LimiterAspectj {
         Method method = methodSignature.getMethod();
         Limiter limiter= method.getAnnotation(Limiter.class);
         String value = limiter.value();
+        boolean flag = true;
         long qps = limiter.qps();
-        LimiterEnum typeEnum = limiter.type();
-        if (value!=null && !value.equals("")) {
-            if (!LimiterTest.limiter(value, qps)) {
-                System.out.println("bu通过");
-                return null;
-            }
+        switch (limiter.type()){
+            case SIMPLE_COUNT:  //简单计数
+                break;
+            case SMOOTH_COUNT:  //平滑计数
+                flag = SmoothCount.limiter(value,qps);
+                break;
+            case LEAKY_BUCKET: //漏桶
+                break;
+            case TOKEN_BUCKET: //令牌桶
+                flag = TokenBucket.limiter(value,qps);
+                break;
+            default: //默认令牌桶
+                flag = TokenBucket.limiter(value,qps);
+                break;
         }
-        /*if(firstRequest.getAndSet(false)){
-            time = end;
-        }*/
-        /*System.out.println(end-time+"---"+end);
-        if((end-time)/1000%2!=0){ //超过限流大小，不执行后面的程序
+        if (!flag) {
+            System.out.println("============================不通过");//测试打印
             return null;
-        }*/
-        long end = System.currentTimeMillis();
-        /*if(firstRequest.getAndSet(false)){
-            time = end;
-        }*/
-
-        /*long s = fddd.incrementAndGet();
-        System.out.print(end-time+"---");
-        if(end-time>1000){
-            time=end;
-            fddd.set(0);
         }
-        if(s>qps){
-            //time = end;
-            if(s>2*qps) {
-                fddd.set(1);
-            } else{
-                System.out.println();
-                return null;
-            }
-        }*/
         Object result = pjp.proceed();
         return result;
     }
-
 }

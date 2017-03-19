@@ -12,7 +12,7 @@ public enum LimiterEnum {
     LEAKY_BUCKET(3), //漏桶
     TOKEN_BUCKET(4); //令牌桶
 
-    int value;
+    public int value;
     LimiterEnum (int value){
         this.value = value;
     }

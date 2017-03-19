@@ -16,17 +16,17 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class SmoothCount {
 
-    private static LoadingCache<Long, ConcurrentMap<String,AtomicLong>> counter =
+    private static LoadingCache<Long, ConcurrentMap<String, AtomicLong>> counter =
             CacheBuilder.newBuilder()
                     .expireAfterWrite(2, TimeUnit.SECONDS)
-                    .build(new CacheLoader<Long, ConcurrentMap<String,AtomicLong>>() {
+                    .build(new CacheLoader<Long, ConcurrentMap<String, AtomicLong>>() {
                         @Override
-                        public ConcurrentMap<String,AtomicLong> load(Long aLong) throws Exception {
+                        public ConcurrentMap<String, AtomicLong> load(Long aLong) throws Exception {
                             return new ConcurrentHashMap<String, AtomicLong>();
                         }
                     });
 
-    public static boolean limiter(String key,long qps){
+    private static AtomicLong getAtomicLong(String key) {
         try {
             long currentSecond = System.currentTimeMillis() / 1000;
             ConcurrentMap<String, AtomicLong> concurrentMap = counter.get(currentSecond);
@@ -38,12 +38,21 @@ public class SmoothCount {
                     count = oldCount;
                 }
             }
-            if (count.incrementAndGet() > qps) {
-                return false;
-            }
-            return true;
-        }catch (Exception e){
+            return count;
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static boolean limiter(String key, long qps) {
+        AtomicLong count = getAtomicLong(key);
+        if (count == null) {
+            return true;
+        }
+        if (count.incrementAndGet() > qps) {
+            return false;
         }
         return true;
     }
