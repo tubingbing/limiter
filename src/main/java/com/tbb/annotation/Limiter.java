@@ -17,7 +17,7 @@ public @interface Limiter {
 
     String value();
     long qps() default 1000;
-    LimiterEnum type() default LimiterEnum.TOKEN_BUCKET;
+    LimiterEnum type() default LimiterEnum.TOKEN_BUCKET_WAIT;
 
 
 

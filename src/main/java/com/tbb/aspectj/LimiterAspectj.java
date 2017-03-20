@@ -48,8 +48,11 @@ public class LimiterAspectj {
             case LEAKY_BUCKET: //漏桶
                 flag = LeakyBucket.limiter(value, qps);
                 break;
-            case TOKEN_BUCKET: //令牌桶 有token执行，未获取到返回false
+            case TOKEN_BUCKET_NOTWAIT: //令牌桶 有token执行，未获取到返回false
                 flag = TokenBucket.limiter(value, qps);
+                break;
+            case TOKEN_BUCKET_WAIT: //默认令牌桶 其他请求等待获取token,不拒绝请求
+                flag = TokenBucket.waitRequest(value, qps);
                 break;
             case REDIS_LUA: //
                 flag = RedisLua.limiter(value, qps);
