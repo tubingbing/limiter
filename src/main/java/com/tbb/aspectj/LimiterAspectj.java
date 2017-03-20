@@ -33,7 +33,7 @@ public class LimiterAspectj {
         Method method = methodSignature.getMethod();
         Limiter limiter = method.getAnnotation(Limiter.class);
         String value = limiter.value();
-        boolean flag = true;
+        boolean flag;
         long qps = limiter.qps();
         switch (limiter.type()) {
             case SIMPLE_COUNT:  //简单计数

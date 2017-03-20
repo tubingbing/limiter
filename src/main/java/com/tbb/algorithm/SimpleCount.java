@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * 简单计数
  * User: tubingbing
  * Date: 2017/3/19
  * Time: 21:02

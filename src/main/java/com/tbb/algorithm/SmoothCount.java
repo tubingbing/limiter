@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * 平滑窗口计数
  * User: tubingbing
  * Date: 2017/3/19
  * Time: 13:36
