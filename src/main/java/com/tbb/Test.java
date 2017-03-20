@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 @Component
 public class Test {
 
-    @Limiter(value="a",qps=10,type = LimiterEnum.TOKEN_BUCKET)
+    @Limiter(value="a",qps=3,type = LimiterEnum.REDIS_LUA)
     public void mss(){
         System.out.println("--------------------通过");
     }
@@ -39,14 +39,15 @@ public class Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-        while(true){
+        for(int i=0;i<20;i++){
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             service.execute(new Runnable() {
                 public void run() {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
                     t.mss();
                 }
             });

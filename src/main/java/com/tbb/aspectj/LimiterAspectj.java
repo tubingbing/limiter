@@ -1,16 +1,19 @@
 package com.tbb.aspectj;
 
-import com.tbb.algorithm.LeakyBucket;
-import com.tbb.algorithm.SimpleCount;
-import com.tbb.algorithm.SmoothCount;
-import com.tbb.algorithm.TokenBucket;
+import com.tbb.algorithm.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionReader;
+import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.beans.factory.xml.BeanDefinitionParser;
+import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.stereotype.Component;
 import com.tbb.annotation.Limiter;
+import org.w3c.dom.Element;
 
 import java.lang.reflect.Method;
 
@@ -48,6 +51,9 @@ public class LimiterAspectj {
             case TOKEN_BUCKET: //令牌桶 有token执行，未获取到返回false
                 flag = TokenBucket.limiter(value, qps);
                 break;
+            case REDIS_LUA: //
+                flag = RedisLua.limiter(value, qps);
+                break;
             default: //默认令牌桶 其他请求等待获取token,不拒绝请求
                 flag = TokenBucket.waitRequest(value, qps);
                 break;
@@ -59,4 +65,5 @@ public class LimiterAspectj {
         Object result = pjp.proceed();
         return result;
     }
+
 }
