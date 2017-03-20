@@ -52,6 +52,6 @@ public class Test {
                 }
             });
         }
-        //service.shutdown();
+        service.shutdown();
      }
 }

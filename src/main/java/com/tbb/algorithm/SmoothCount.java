@@ -65,6 +65,7 @@ public class SmoothCount {
         //前9次窗口的总计数
         long totalCount = getTotalCount(key, currentSecond);
         if (totalCount + count.incrementAndGet() > qps) {
+            count.decrementAndGet(); //未通过的请求计数-1
             return false;
         }
         return true;

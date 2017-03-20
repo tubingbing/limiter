@@ -5,6 +5,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
+import redis.clients.util.Hashing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +23,15 @@ public class RedisClient {
         List<JedisShardInfo> shardInfoList = new ArrayList<JedisShardInfo>();
         JedisShardInfo hostAndPort = new JedisShardInfo("127.0.0.1",6379);
         shardInfoList.add(hostAndPort);
-        jedisPool = new ShardedJedisPool(new GenericObjectPoolConfig(),shardInfoList);
+        jedisPool = new ShardedJedisPool(new GenericObjectPoolConfig(),shardInfoList, Hashing.MURMUR_HASH);
     }
 
     public static ShardedJedis getShardedJedis(){
         return jedisPool.getResource();
     }
 
-    
-
+    public static void close(ShardedJedis jedis){
+        jedisPool.returnResource(jedis);
+    }
 
 }

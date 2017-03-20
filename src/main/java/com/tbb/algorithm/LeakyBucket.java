@@ -51,7 +51,7 @@ public class LeakyBucket {
                 long now = System.currentTimeMillis() / 1000;
                 water = Math.max(0, water - (now - oldSecond) * rate); // 先执行漏水，计算剩余水量
                 oldSecond = now;
-                if ((water + 1) < capacity) {// 尝试加水,并且水还未满
+                if ((water + 1) <= capacity) {// 尝试加水,并且水还未满
                     water += 1;
                     return true;
                 } else {// 水满，拒绝加水
