@@ -45,11 +45,11 @@ public class LimiterAspectj {
             case LEAKY_BUCKET: //漏桶
                 flag = LeakyBucket.limiter(value, qps);
                 break;
-            case TOKEN_BUCKET: //令牌桶
+            case TOKEN_BUCKET: //令牌桶 有token执行，未获取到返回false
                 flag = TokenBucket.limiter(value, qps);
                 break;
-            default: //默认令牌桶
-                flag = TokenBucket.limiter(value, qps);
+            default: //默认令牌桶 其他请求等待获取token,不拒绝请求
+                flag = TokenBucket.waitRequest(value, qps);
                 break;
         }
         if (!flag) {
