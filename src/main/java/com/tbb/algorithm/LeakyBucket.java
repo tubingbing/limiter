@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class LeakyBucket {
 
-    public static final ConcurrentMap<String, Leaky> concurrentMap = new ConcurrentHashMap<String, Leaky>();
+    private static final ConcurrentMap<String, Leaky> concurrentMap = new ConcurrentHashMap<String, Leaky>();
 
     private static Leaky getLeaky(String key, long qps) {
         Leaky leaky = concurrentMap.get(key);
@@ -35,17 +35,17 @@ public class LeakyBucket {
     }
 
     static class Leaky extends ReentrantLock {
-        public long oldSecond = System.currentTimeMillis() / 1000;
-        public long capacity; // 桶的容量
-        public long rate; // 水漏出的速度
-        public long water; // 当前水量(当前累积请求数)
+        private long oldSecond = System.currentTimeMillis() / 1000;
+        private long capacity; // 桶的容量
+        private long rate; // 水漏出的速度
+        private long water; // 当前水量(当前累积请求数)
 
         Leaky(long qps) {
             this.capacity = qps;
             this.rate = qps;
         }
 
-        public boolean grant() {
+        private boolean grant() {
             this.lock();
             try {
                 long now = System.currentTimeMillis() / 1000;
