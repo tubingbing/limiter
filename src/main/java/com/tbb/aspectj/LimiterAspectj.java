@@ -6,14 +6,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionReader;
-import org.springframework.beans.factory.support.RootBeanDefinition;
-import org.springframework.beans.factory.xml.BeanDefinitionParser;
-import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.stereotype.Component;
 import com.tbb.annotation.Limiter;
-import org.w3c.dom.Element;
 
 import java.lang.reflect.Method;
 
@@ -62,7 +56,7 @@ public class LimiterAspectj {
                 break;
         }
         if (!flag) {
-            System.out.println("============================不通过");//测试打印
+            //System.out.println("============================不通过");//测试打印
             return null;
         }
         Object result = pjp.proceed();

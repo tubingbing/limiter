@@ -29,16 +29,6 @@ public class Test {
 
         ExecutorService service = Executors.newFixedThreadPool(4);
        final Random r = new Random();
-        /*service.execute(new Runnable() {
-            public void run() {
-                t.mss();
-            }
-        });
-        try {
-            Thread.sleep(1100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         for(int i=0;i<20;i++){
             try {
                 Thread.sleep(200);
@@ -47,7 +37,6 @@ public class Test {
             }
             service.execute(new Runnable() {
                 public void run() {
-
                     t.mss();
                 }
             });
