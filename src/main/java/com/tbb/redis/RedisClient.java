@@ -31,11 +31,11 @@ public class RedisClient {
     static {
         try {
             String path = RedisLua.class.getResource("/").getPath();
-            FileInputStream inputStream = new FileInputStream(new File(path + "limit.lua"));
-            Properties perties = new Properties();
-            perties.load(inputStream);
-            String[] ips = perties.getProperty("redis.ip", DEFAULT_IP).split(",");
-            String[] ports = perties.getProperty("redis.port", DEFAULT_PORT).split(",");
+            FileInputStream inputStream = new FileInputStream(new File(path + "redis.properties"));
+            Properties properties = new Properties();
+            properties.load(inputStream);
+            String[] ips = properties.getProperty("redis.ip", DEFAULT_IP).split(",");
+            String[] ports = properties.getProperty("redis.port", DEFAULT_PORT).split(",");
             List<JedisShardInfo> shardInfoList = new ArrayList<JedisShardInfo>();
             int length = Math.max(ips.length, ports.length);
             for (int i = 0; i < length; i++) {
