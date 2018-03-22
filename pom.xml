@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>limiter-core</module>
+        <module>limiter-web</module>
     </modules>
     <packaging>pom</packaging>
 
