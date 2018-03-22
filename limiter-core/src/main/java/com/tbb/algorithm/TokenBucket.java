@@ -1,6 +1,8 @@
 package com.tbb.algorithm;
 
 import com.google.common.util.concurrent.RateLimiter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -8,10 +10,11 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * 令牌桶算法 （利用guava的ratelimiter）
  * User: tubingbing
- * Date: 2017/3/19
+ * Date: 2017/3/30
  * Time: 13:29
  */
 public class TokenBucket {
+    private static final Logger logger = LoggerFactory.getLogger(SmoothCount.class);
 
     private static final ConcurrentMap<String, RateLimiter> concurrentMap = new ConcurrentHashMap<String, RateLimiter>();
 
@@ -30,6 +33,8 @@ public class TokenBucket {
                 limiter = oldLimiter;
             }
         }
+        //qps变更需要
+        limiter.setRate(qps);
         return limiter;
     }
 
@@ -40,6 +45,9 @@ public class TokenBucket {
      * @return
      */
     public static boolean limiter(String key, long qps) {
+        if ((key==null || key.equals("")) || qps <=0){
+            return true;
+        }
         RateLimiter limiter = getRateLimiter(key, qps);
         return limiter.tryAcquire();
     }
@@ -51,6 +59,9 @@ public class TokenBucket {
      * @return
      */
     public static boolean waitRequest(String key, long qps){
+        if ((key==null || key.equals("")) || qps <=0){
+            return true;
+        }
         RateLimiter limiter = getRateLimiter(key, qps);
         limiter.acquire();
         return true;

@@ -1,5 +1,6 @@
 package com.tbb.annotation;
 
+
 import com.tbb.constant.LimiterEnum;
 
 import java.lang.annotation.*;
@@ -17,9 +18,7 @@ import java.lang.annotation.*;
 public @interface Limiter {
 
     String value();
-    long qps() default 1000;
-    LimiterEnum type() default LimiterEnum.TOKEN_BUCKET_WAIT;
-
-
+    LimiterEnum type() default LimiterEnum.SIMPLE_COUNT;
+    //String limiterReturn() default "";//"{\"code:-1\",\"msg\":\"请求过于频繁，请稍后再试\"}";
 
 }

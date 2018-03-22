@@ -1,5 +1,8 @@
 package com.tbb.algorithm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -7,13 +10,21 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 漏桶实现
  * User: tubingbing
- * Date: 2017/3/19
+ * Date: 2017/3/30
  * Time: 22:42
  */
 public class LeakyBucket {
-
+    //日志
+    private static final Logger logger = LoggerFactory.getLogger(LeakyBucket.class);
+    //所有限流接口map
     private static final ConcurrentMap<String, Leaky> concurrentMap = new ConcurrentHashMap<String, Leaky>();
 
+    /**
+     * 得到对应限流接口的漏桶类
+     * @param key
+     * @param qps
+     * @return
+     */
     private static Leaky getLeaky(String key, long qps) {
         Leaky leaky = concurrentMap.get(key);
         if (leaky == null) {
@@ -23,10 +34,20 @@ public class LeakyBucket {
                 leaky = oldLeaky;
             }
         }
+        leaky.setRate(qps);
         return leaky;
     }
 
+    /**
+     * 限流
+     * @param key 接口
+     * @param qps 总数
+     * @return  
+     */
     public static boolean limiter(String key, long qps) {
+        if ((key==null || key.equals("")) || qps <=0){
+            return true;
+        }
         Leaky leaky = getLeaky(key, qps);
         if (leaky != null) {
             return leaky.grant();
@@ -34,6 +55,9 @@ public class LeakyBucket {
         return true;
     }
 
+    /**
+     * 内部静态漏桶类
+     */
     static class Leaky extends ReentrantLock {
         private long oldSecond = System.currentTimeMillis() / 1000;
         private long capacity; // 桶的容量
@@ -41,10 +65,18 @@ public class LeakyBucket {
         private long water; // 当前水量(当前累积请求数)
 
         Leaky(long qps) {
-            this.capacity = qps;
-            this.rate = qps;
+            setRate(qps);
         }
 
+        private void setRate(long qps){
+            this.rate = qps;
+            this.capacity=qps;
+        }
+
+        /**
+         * 请求是否允许通过
+         * @return
+         */
         private boolean grant() {
             this.lock();
             try {

@@ -1,17 +1,8 @@
 package com.tbb.redis;
 
-import com.tbb.algorithm.RedisLua;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import redis.clients.jedis.JedisShardInfo;
-import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPool;
-import redis.clients.util.Hashing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 /**
  * 工具类--获取redis连接池
@@ -22,16 +13,18 @@ import java.util.Properties;
  */
 public class RedisClient {
 
-    private static ShardedJedisPool jedisPool;
+    private static final Logger logger = LoggerFactory.getLogger(RedisClient.class);
+
+    //private static ShardedJedisPool jedisPool;
 
     private static final String DEFAULT_IP = "127.0.0.1";
 
     private static final String DEFAULT_PORT = "6379";
 
-    static {
+    /*static {
+        InputStream inputStream = null;
         try {
-            String path = RedisLua.class.getResource("/").getPath();
-            FileInputStream inputStream = new FileInputStream(new File(path + "redis.properties"));
+            inputStream = RedisClient.class.getResourceAsStream("/redis.properties");
             Properties properties = new Properties();
             properties.load(inputStream);
             String[] ips = properties.getProperty("redis.ip", DEFAULT_IP).split(",");
@@ -50,34 +43,44 @@ public class RedisClient {
                 JedisShardInfo shardInfo = new JedisShardInfo(ip, Integer.parseInt(port));
                 shardInfoList.add(shardInfo);
             }
-            jedisPool = new ShardedJedisPool(new GenericObjectPoolConfig(), shardInfoList, Hashing.MURMUR_HASH);
+            GenericObjectPoolConfig config = new GenericObjectPoolConfig();
+            config.setMaxTotal(150);
+            jedisPool = new ShardedJedisPool(config, shardInfoList, Hashing.MURMUR_HASH);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("exception",e);
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                logger.error("io close exception",e);
+            }
         }
-    }
+    }*/
 
     /**
      * 获取连接
      *
      * @return
      */
-    public static ShardedJedis getShardedJedis() {
+    /*public static ShardedJedis getShardedJedis() {
         if (jedisPool == null) {
             return null;
         }
         return jedisPool.getResource();
-    }
+    }*/
 
     /**
      * 释放连接
      *
      * @param jedis
      */
-    public static void close(ShardedJedis jedis) {
+    /*public static void close(ShardedJedis jedis) {
         if (jedisPool == null) {
             return;
         }
         jedisPool.returnResource(jedis);
-    }
+    }*/
 
 }
