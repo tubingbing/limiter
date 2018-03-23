@@ -1,0 +1,20 @@
+#foreach($limiter in $systemMap.entrySet())
+<tr>
+    <td>$!limiter.key</td>
+    <td>$!limiter.value.systemName</td>
+    <td>
+        $!limiter.value.auth
+    </td>
+    <td>
+        <center>
+            <div class="btn-group ">
+                <a  id="btnMyOrderView" class=" btn-primary btn-sm" onclick="limiter.updateSystemId('/limiter/updateSystemId.xhtml','修改','/limiter/updateSystemIdSubmit.xhtml','$!{limiter.key}')" style="text-decoration:none">修改</a>
+            </div>
+        </center>
+    </td>
+</tr>
+#end
+
+
+
+

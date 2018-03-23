@@ -1,0 +1,64 @@
+<script>
+    $(function(){
+       
+    });
+</script>
+<div class="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-cog home-icon"></i>
+            限流配置
+        </li>
+        <li>系统</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <form id="form_limiter_searchForm" >
+                <div class="well h50">
+                    <div class="form-inline col-xs-12 h50">
+                        <button id="limiterAddButton" class="btn btn-primary btn-sm" style="border-width: 2px;"  type="button" onclick="limiter.updateSystemId('/limiter/updateSystemId.xhtml','新增','/limiter/updateSystemIdSubmit.xhtml','')">
+                            <i class="icon-search"></i> 新增
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 表格数据 -->
+                <table class="table table-striped table-bordered table-condensed grid" style="word-break:break-all; word-wrap:break-all;">
+                    <thead>
+                    <tr>
+                        <th>系统id</th>
+                        <th>系统名称</th>
+                        <th>拥有权限erp</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="limiterTbody">
+                        #foreach($limiter in $systemMap.entrySet())
+                        <tr>
+                            <td>$!limiter.key</td>
+                            <td>$!limiter.value.systemName</td>
+                            <td>
+                                $!limiter.value.auth
+                            </td>
+                            <td>
+                                <center>
+                                    <div class="btn-group ">
+                                        <a  id="btnMyOrderView" class=" btn-primary btn-sm" onclick="limiter.updateSystemId('/limiter/updateSystemId.xhtml','修改','/limiter/updateSystemIdSubmit.xhtml','$!{limiter.key}')" style="text-decoration:none">修改</a>
+                                    </div>
+                                </center>
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/js/bussiness/limiter/limiter.js" type="text/javascript"></script>
+
+
+

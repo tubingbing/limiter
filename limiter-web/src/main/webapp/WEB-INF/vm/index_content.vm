@@ -1,0 +1,62 @@
+
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+    *{
+        margin:0;
+        padding:0;
+    }
+    .main-content{
+        font-family:Arial;
+        background:#fff url(/images/bg.png) no-repeat top left;
+    }
+    #content{
+        margin:0 15%;
+        position: relative;
+        width:70%
+    }
+    .me{
+        padding:5px;
+        font-weight: bolder;
+        position: absolute;
+        right: -133px;
+        top:110px;
+        width:160px;
+        background:#438eb9;
+        cursor:pointer;
+    }
+
+    .label_me{
+        width:18px;
+        text-align:center;
+        color:#fff;
+        float:left;
+        line-height: 1.2em;
+    }
+    .me img{
+        border:none;
+        width:120px;
+        height:120px;
+        margin-top:3px;
+        float:right;
+    }
+    .toast {
+        background:url(/images/tip.png) no-repeat center center;
+        top: 220px;
+        color: #fefefe;
+        font-family: "Microsoft YaHei";
+        font-size: 14px;
+        font-weight: bold;
+        right: 5%;
+        padding: 70px 85px;
+        position: absolute;
+        width: 316px;
+        height: 201px;
+        cursor: pointer;
+    }
+</style>
+<div id="content">
+    <div id="nav" class="navigation clearfix">
+
+       
+    </div>
+</div>

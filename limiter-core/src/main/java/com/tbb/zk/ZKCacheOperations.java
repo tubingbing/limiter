@@ -7,13 +7,13 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.common.PathUtils;
 
 public class ZKCacheOperations<V> {
-    private ZKCacheClient zooKeeperCacheClient;
+    private ZKCacheClient zkCacheClient;
 
     public ZKCacheOperations() {
     }
 
     public void registerWatcher(String path, TreeCacheListener treeCacheListener) throws KeeperException, InterruptedException {
-        this.zooKeeperCacheClient.registerTreeCache(path, treeCacheListener);
+        this.zkCacheClient.registerTreeCache(path, treeCacheListener);
     }
 
     public V get(String path) throws KeeperException, InterruptedException {
@@ -25,10 +25,10 @@ public class ZKCacheOperations<V> {
             return (V)value;
         } else {
             value = null;
-            if(this.zooKeeperCacheClient.getClient() != null && this.zooKeeperCacheClient.getClient().getZookeeperClient() != null && this.zooKeeperCacheClient.getClient().getZookeeperClient().isConnected()) {
+            if(this.zkCacheClient.getClient() != null && this.zkCacheClient.getClient().getZookeeperClient() != null && this.zkCacheClient.getClient().getZookeeperClient().isConnected()) {
                 try {
                     this.register(path);
-                    byte[] e = this.zooKeeperCacheClient.getClient().getData().forPath(path);
+                    byte[] e = this.zkCacheClient.getClient().getData().forPath(path);
                     if(e != null) {
                         value = ZKDeserializeUtil.getInstance().deserialize(e);
                     }
@@ -46,14 +46,14 @@ public class ZKCacheOperations<V> {
     }
 
     private void register(String path) throws KeeperException, InterruptedException {
-        this.zooKeeperCacheClient.registerTreeCache(path, this.zooKeeperCacheClient.getTreeCacheListener());
+        this.zkCacheClient.registerTreeCache(path, this.zkCacheClient.getTreeCacheListener());
     }
 
-    public ZKCacheClient getZKCacheClient() {
-        return this.zooKeeperCacheClient;
+    public ZKCacheClient getZkCacheClient() {
+        return zkCacheClient;
     }
 
-    public void setZKCacheClient(ZKCacheClient zooKeeperCacheClient) {
-        this.zooKeeperCacheClient = zooKeeperCacheClient;
+    public void setZkCacheClient(ZKCacheClient zkCacheClient) {
+        this.zkCacheClient = zkCacheClient;
     }
 }

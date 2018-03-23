@@ -1,0 +1,55 @@
+    #foreach($limiter in $map.entrySet())
+    <tr>
+        <td class="textC vam">
+            <input type="checkbox" name="checkList" value="$!{limiter.key}"/>
+            <input type="hidden" value="$!{limiter.value.systemId}"/>
+        </td>
+        <td>$!limiter.value.systemId</td>
+        <td>$!systemInfoMap.get($limiter.value.systemId).systemName</td>
+        <td>$!limiter.key</td>
+        <td>#if($limiter.value.openLimiter==1)
+                是
+            #else
+                否
+            #end
+        </td>
+        <td>$!limiter.value.totalQps</td>
+        <td>#if($limiter.value.openBrush==1)
+            是
+        #else
+            否
+        #end
+        </td>
+        <td>$!limiter.value.requestQps</td>
+        <td>
+            #foreach($type in $!limiter.value.requestType)
+                #if($type==1)
+                    pin、
+                #end
+                #if($type==2)
+                    ip、
+                #end
+                #if($type==3)
+                    设备号、
+                #end
+                #if($type==4)
+                    平台
+                #end
+            #end
+            </td>
+        <td>$!limiter.value.time</td>
+        <td>
+            <center>
+                <div class="btn-group ">
+                    <a  id="btnMyOrderView" class=" btn-primary btn-sm" onclick="limiter.update('/limiter/update.xhtml','修改','/limiter/updateSubmit.xhtml','$!{limiter.value.systemId}','$!{limiter.key}')" style="text-decoration:none">修改</a>
+                </div>
+                <div class="btn-group ">
+                    <a  id="btnMyOrderView" class=" btn-primary btn-sm" onclick="limiter.delete('/limiter/delete.xhtml','$!{limiter.value.systemId}','$!{limiter.key}')" style="text-decoration:none">删除</a>
+                </div>
+            </center>
+        </td>
+    </tr>
+    #end
+
+
+

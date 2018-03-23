@@ -1,0 +1,355 @@
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, b, ul, li, form, dl, dt, dd, em, strong, b, input {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-family: '微软雅黑';
+}
+
+/*a {*/
+/*text-decoration: none;*/
+/*}*/
+
+ul, li {
+    list-style: none;
+}
+
+/*img {*/
+/*border: 0;*/
+/*}*/
+
+/*body {*/
+/*background: #f4f4f4;*/
+/*}*/
+
+/**/
+.main-container:after {
+
+    display: none;
+
+}
+
+.ump-container {
+    /*width:6000px; *//*//这个必须是动态的。每个200*/
+    padding: 70px 40px 50px;
+    margin: 0 auto;
+}
+
+.data-list {
+    margin-left: 0px;
+}
+
+.list-process {
+    padding-bottom: 51px;
+    border-bottom: 12px solid #69c;
+    border-radius: 6px;
+    position: relative;
+}
+
+.list-process li {
+    position: relative;
+    float: left;
+    text-align: left;
+    width: 200px;
+}
+
+.list-process span {
+    font-size: 18px;
+    color: #69c;
+    font-weight: bold;
+}
+
+.list-process p {
+    cursor: pointer;
+    position: absolute;
+    left: -5px;
+    bottom: -58px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #69c;
+}
+
+.list-process2 {
+    margin: 19px 0 0 15px;
+}
+
+.list-process2 .b {
+    float: left;
+    width: 200px;
+    padding-top: 40px;
+    border-left: 6px solid #ccc;
+    position: relative;
+}
+
+/*第一个元素没有子节点*/
+.list-process2 .b:first-child {
+    border-left: none;
+}
+
+.data-list li {
+    position: relative;
+    margin-bottom: 20px;
+    /*cursor: pointer;*/
+}
+
+.data-list li:last-child {
+    margin-bottom: 0;
+}
+
+.text {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 14px;
+    font-family: '微软雅黑';
+    color: #666;
+}
+
+.iconWithgreen {
+    position: absolute;
+    top: 3px;
+    left: -12px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border-radius: 18px;
+    background: #6c6;
+}
+
+.iconWithred {
+    position: absolute;
+    top: 3px;
+    left: -12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+    cursor: pointer;
+    background: #d31145;
+}
+
+.iconWithyellow {
+    position: absolute;
+    top: 3px;
+    left: -12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+    cursor: pointer;
+    background: #ff0;
+}
+
+.iconWithgrey {
+    position: absolute;
+    top: 3px;
+    left: -12px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border-radius: 18px;
+    background: #000;
+}
+
+/*.icon {*/
+/*position: absolute;*/
+/*top: 3px;*/
+/*left: -12px;*/
+/*width: 18px;*/
+/*height: 18px;*/
+/*border-radius: 18px;*/
+/*background: #6c6;*/
+/*}*/
+
+/*.icon.red {*/
+/*background: #d31145;*/
+/*}*/
+
+.data-list-b {
+    -webkit-box-sizing: initial;
+    border-top: 6px solid #ccc;
+    border-right: 6px solid #ccc;
+    width: 50px;
+    padding: 10px;
+    margin-top: -12px;
+}
+
+.data-list-b li {
+    position: relative;
+}
+
+.data-list-b .icon {
+    top: 2px;
+    left: 53px;
+}
+
+.data-list-b .text {
+    display: block;
+    position: relative;
+    left: 50px;
+    width: 160px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.data-list-b li:last-child {
+    margin-bottom: -15px;
+}
+
+/*tip*/
+
+.tip {
+    display: none;
+    border-radius: 5px;
+    width: 197px;
+    position: absolute;
+    top: -11px;
+    left: -27px;
+    z-index: 99;
+}
+
+.top {
+    display: block;
+    position: relative;
+    width: 197px;
+    height: 20px;
+    background: url(../images/tip_top.png) 0 0 no-repeat;
+}
+
+.close {
+    position: absolute;
+    top: 7px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    background: url(../images/close.png) 0 0 no-repeat;
+    text-indent: -99999px;
+}
+
+.content {
+    background: #e6e6e6;
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.tip em {
+    display: block;
+    padding: 5px 0 10px;
+    font-size: 16px;
+    color: #6c6;
+}
+
+.tip em.tit {
+    font-size: 20px;
+}
+
+.tip .cxt {
+    border-top: 1px solid #6c6;
+    border-bottom: 1px solid #6c6;
+    padding: 10px 0;
+}
+
+.detail {
+    background: #e6e6e6;
+    display: block;
+    text-align: right;
+}
+
+.detail em::after {
+    content: "";
+    margin-right: 10px;
+    padding: 5px;
+    background: url(../images/arr-g.png) 100% 50% no-repeat;
+}
+
+.list-process:after {
+    background-color: #6ad42d;
+    bottom: 0;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 35px;
+    right: -9px;
+    /* float: right; */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+/*文字*/
+.list-process:before {
+    bottom: 0;
+    content: "完成";
+    display: block;
+    position: absolute;
+    top: -3px;
+    right: 0px;
+    font-size: 18px;
+    color: #69c;
+    font-weight: bold;
+}
+
+#icon-1 {
+    background: #dc3811;
+}
+
+#icon-2 {
+    background: #3031dc;
+    width: 25px;
+    height: 25px;
+}
+
+li > ul, li > ol {
+    margin-left: 0px;
+}
+
+.colorLegend{
+    height: 98px;
+    margin: 0px auto;
+    left: 33%;
+    bottom: 46px;
+    position: fixed;
+}
+.list-colorLegend {
+    width: 800px;
+    height: 98px;
+    /* margin: 0px auto; */
+    left: 33%;
+    bottom: 46px;
+    position: fixed;
+ }
+
+.list-colorLegend li {
+    margin-left: 100px;
+    /* text-indent: 20; */
+    list-style: none;
+    float: left;
+    /* position: absolute; */
+    left: -5px;
+    bottom: -57px;
+    width: 12%;
+    height: 80%;
+    border-radius: 50%;
+    /*background: #69c;*/
+    line-height: 3;
+    box-shadow: 10px 10px 5px #888888;
+}
+.list-colorLegend .green{
+    background: #6c6;
+}
+.list-colorLegend .yellow{
+    background: #ff0;
+}.list-colorLegend .red{
+     background: #d31145;
+ }.list-colorLegend .block{
+      background: #000;
+  }
+.list-colorLegend p{
+    color: #252424;
+    margin-top: 73px;
+    text-align: center;
+    font-size:22px;
+    font-weight: bold;
+}

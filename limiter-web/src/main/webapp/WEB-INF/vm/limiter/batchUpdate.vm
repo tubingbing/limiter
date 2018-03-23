@@ -1,0 +1,43 @@
+<form id="batchUpdateForm" method="POST">
+    <table class="table table-bordered table-striped formLayout m0">
+        <tr>
+            <input type="hidden" name="paths" id="paths" placeholder="" value="$!{paths}"/>
+            <input type="hidden" name="systemId" id="systemId" placeholder="" value="$!{systemId}"/>
+            <td>是否开启限流:</td>
+            <td>
+                <input type="radio" name="openLimiter" id="openLimiter" value="1"/>是
+                <input type="radio" name="openLimiter" id="openLimiter" value="0" checked />否
+            </td>
+        </tr>
+        <tr>
+            <td>QPS:</td>
+            <td><input type="text" name="totalQps" id="totalQps" placeholder=""/></td>
+        </tr>
+        <tr>
+            <td>是否开启防刷:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <input type="radio" name="openBrush" id="openBrush" value="1"
+                       onclick="limiter.showBrushData(this.value)"/>是
+                <input type="radio" name="openBrush" id="openBrush" value="0" checked
+                       onclick="limiter.showBrushData(this.value)"/>否
+            </td>
+        </tr>
+        <tr class="brushTrClass" style="display:none">
+            <td>防刷次数（根据用户pin、<br/>ip、设备id、平台）:</td>
+            <td><input type="text" name="requestQps" id="requestQps" placeholder=""/></td>
+        </tr>
+        <tr class="brushTrClass" style="display:none">
+            <td>防刷请求类型:</td>
+            <td>
+                <input type="checkbox" name="requestType" id="requestType" value="1"/>pin
+                <input type="checkbox" name="requestType" id="requestType" value="2"/>ip
+                <input type="checkbox" name="requestType" id="requestType" value="3"/>设备号
+                <input type="checkbox" name="requestType" id="requestType" value="4"/>平台
+            </td>
+        </tr>
+        <tr class="brushTrClass" style="display:none">
+            <td>防刷限制时长（分钟）:</td>
+            <td><input type="text" name="time" id="time" placeholder=""/></td>
+        </tr>
+    </table>
+</form>

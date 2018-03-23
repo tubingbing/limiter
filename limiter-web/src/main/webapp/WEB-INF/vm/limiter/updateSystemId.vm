@@ -1,0 +1,27 @@
+<form id="updateForm"  method="POST" >
+    <table class="table table-bordered table-striped formLayout m0">
+        <tr>
+            <td>系统id:</td>
+            <td>
+                #if($!{domain})
+                    <input type="hidden" name="systemId" id="systemId" value="$!{domain.systemId}"/>
+                    <input type="text" value="$!{domain.systemId}" readonly="readonly"/>
+                #else
+                    <input type="text" name="systemId" id="systemId" value="" />
+                #end
+            </td>
+        </tr>
+        <tr>
+            <td>系统名称:</td>
+            <td><input type="text" name="systemName" id="systemName" placeholder="" value="$!{domain.systemName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>权限erp:</td>
+            <td>
+                <textarea name="auth" id="auth" rows="10" tabindex="1" style="width: 300px">$!{domain.auth}</textarea>
+            </td>
+        </tr>
+
+    </table>
+</form>

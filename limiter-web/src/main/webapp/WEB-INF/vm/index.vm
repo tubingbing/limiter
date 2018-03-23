@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/ace.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/ace-rtl.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/ace-skins.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery.validator.css" rel="stylesheet" type="text/css">
+    <link href="/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/css/page.css" rel="stylesheet" type="text/css">
+    <link href="/css/zTreeStyle.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-letterfx.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/powerFloat.css" rel="stylesheet" type="text/css">
+    <link href="/css/smart_wizard.css" rel="stylesheet" type="text/css">
+    <script src="/js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/common/html5.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/common/typeahead-bs2.min.js" type="text/javascript"></script>
+    <script src="/js/common/ace-elements.min.js" type="text/javascript"></script>
+    <script src="/js/common/ace.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap/bootstrap-switch.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap/bootstrap-prompts-alert.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery.validator.js" type="text/javascript"></script>
+    <script src="/js/common/zh_CN.js" type="text/javascript"></script>
+    <script src="/js/common/common.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
+    <script src="/js/common/rsa.js" type="text/javascript"></script>
+    <script src="/js/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="/js/common/iLoad.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery-letterfx.min.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery-powerFloat-min.js" type="text/javascript"></script>
+    <script src="/js/common/d3.v3.min.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery.nicescroll.min.js" type="text/javascript"></script>
+    <script src="/js/common/index.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery.form.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/js/jquery/jquery.ztree.exhide-3.5.min.js" type="text/javascript"></script>
+##<script src="/js/highcharts/highcharts.js" type="text/javascript"></script>
+##<script src="/js/highcharts/highcharts-more.js" type="text/javascript"></script>
+    <script src="/js/common/iMove.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/ui-dialog.css">
+    <script src="/js/common/dialog-min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        iLoadJS.upContent('main-content','/indexContent.xhtml');
+    });
+</script>
+</head>
+<body id="mainframe">
+    <div id="div_index_menuContent" class="sidebar menu-bar">
+        <div class="navbar-menu-left">
+        </div>
+
+        <div class="navbar-container-index">
+            <ul id="sidebar" class="nav nav-list">
+                <li class="open">
+                    <a id="order-submit" href="javascript:void(0);" onclick="iLoadJS.upContent('main-content','/indexContent.xhtml')">
+                        <span class="menu-text">首页</span>
+                    </a>
+                </li>
+
+                <li class="open">
+                    <a id="limiter-submit" href="javascript:void(0);" onclick="iLoadJS.upContent('main-content','/limiter/query.xhtml')" >
+                        <span class="menu-text">限流</span>
+                    </a>
+
+                </li>
+                <li class="open">
+                    <a id="limiterSystemId-submit" href="javascript:void(0);" onclick="iLoadJS.upContent('main-content','/limiter/querySystemId.xhtml')" >
+                        <span class="menu-text">限流系统管理</span>
+                    </a>
+
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="navbar-menu-right temp-box">
+        </div>
+    </div>
+    <div class="main-container main-container-mt">
+        <div id="main-content" class="main-content"></div>
+    </div>
+</body>
+</html>

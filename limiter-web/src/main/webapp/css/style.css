@@ -1,0 +1,136 @@
+.navigation{
+    margin: 0px auto;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: 1.4px;
+}
+.navigation .item{
+    position:absolute;
+}
+.user{
+    top:95px;
+    left:70px;
+}
+.home{
+   top:30px;
+   left:320px;
+}
+.shop{
+   top:70px;
+   left:585px;
+}
+.camera{
+   top:210px;
+   left:795px;
+}
+.fav{
+   top:375px;
+   left:710px;
+}
+.cbsys{
+	top:225px;
+	left:230px;
+}
+.online{
+	top:205px;
+	left:180px;
+}
+.task{
+	top:152px;
+	left:432px;
+}
+a.icon{
+    width:52px;
+    height:52px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    cursor:pointer;
+}
+.user a.icon{
+    background:transparent url(../images/user.png) no-repeat 0px 0px;
+}
+.home a.icon{
+    background:transparent url(../images/order.png) no-repeat 0px 0px;
+}
+.shop a.icon{
+    background:transparent url(../images/user.png) no-repeat 0px 0px;
+}
+.camera a.icon{
+    background:transparent url(../images/user.png) no-repeat 0px 0px;
+}
+
+.online a.icon{
+    background:transparent url(../images/user.png) no-repeat 0px 0px;
+}
+.task a.icon{
+    background:transparent url(../images/user.png) no-repeat 0px 0px;
+}
+.navigation .item a.active{
+    background-position:0px -52px;
+}
+.item .badge{
+	position: relative;
+	left: 40px;
+	top: -15px;
+	z-index: 99;
+}
+.item img.circle{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:52px;
+    height:52px;
+    opacity:0.1;
+}
+.item h2{
+    position:absolute;
+    width:147px;
+    height:52px;
+    color:#222;
+    font-family: "微软雅黑" !important;
+    font-size:18px;
+    top:0px;
+    left:42px;
+    text-indent:10px;
+    line-height:52px;
+    text-shadow:1px 1px 1px #fff;
+    text-transform:uppercase;
+}
+.item h2.active{
+    color:#fff;
+    text-shadow:1px 0px 1px #555;
+}
+.item ul{
+    list-style:none;
+    position:absolute;
+    top:60px;
+    left:0px;
+    display:none;
+}
+.item ul li{
+    font-size:12px;
+    font-weight:normal;
+    text-decoration:none;
+    /*letter-spacing:1.5px;*/
+    text-transform:uppercase;
+    color:#fff;
+    padding:3px;
+    float:left;
+    clear:both;
+    width:100px;
+    text-shadow:1px 1px 1px #222;
+}
+.item ul li a:hover{
+    background-color:#fff;
+    color:#444;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    -moz-box-shadow:1px 1px 4px #666;
+    -webkit-box-shadow:1px 1px 4px #666;
+    box-shadow:1px 1px 4px #666;
+}
+

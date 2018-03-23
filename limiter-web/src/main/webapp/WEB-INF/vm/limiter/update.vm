@@ -1,0 +1,71 @@
+<form id="updateForm"  method="POST" >
+    <table class="table table-bordered table-striped formLayout m0">
+        <tr>
+            <td>系统id:</td>
+            <td><input type="hidden" name="systemId" id="systemId" placeholder="" value="$!{limiterDomain.systemId}"/>
+                <input type="text" name="systemId2" value="$!systemInfoMap.get($limiterDomain.systemId).systemName" readonly="readonly"/>
+            </td>
+        </tr>
+        <tr>
+            <td>限流接口:</td>
+            <td><input type="hidden" name="path" id="path" placeholder="" value="$!{limiterDomain.path}"/>
+                <input type="text" name="path2" value="$!{limiterDomain.path}" readonly="readonly"/>
+            </td>
+        </tr>
+        <tr>
+            <td>是否开启限流:</td>
+            <td>
+                <input type="radio" name="openLimiter" id="openLimiter" value="1"#if(${limiterDomain.openLimiter}==1) checked="checked" #end/>是
+                <input type="radio" name="openLimiter" id="openLimiter"value="0" #if(${limiterDomain.openLimiter}==0) checked="checked" #end/>否
+            </td>
+        </tr>
+        <tr>
+            <td>QPS:</td>
+            <td><input type="text" name="totalQps" id="totalQps" placeholder="" value="$!{limiterDomain.totalQps}"/></td>
+        </tr>
+        <tr>
+            <td>是否开启防刷:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <input type="radio" name="openBrush" id="openBrush" value="1" onclick="limiter.showBrushData(this.value)" #if(${limiterDomain.openBrush}==1) checked="checked"
+                #end/>是
+                <input type="radio" name="openBrush" id="openBrush" value="0" onclick="limiter.showBrushData(this.value)" #if(${limiterDomain.openBrush}==0) checked="checked"
+                #end/>否
+            </td>
+        </tr>
+        <tr class="brushTrClass" #if(${limiterDomain.openBrush}==0) style="display:none" #end >
+            <td>防刷次数（根据用户pin、<br/>ip、设备id、平台）:</td>
+            <td><input type="text" name="requestQps" id="requestQps" placeholder="" value="$!{limiterDomain.requestQps}"/></td>
+        </tr>
+        <tr class="brushTrClass" #if(${limiterDomain.openBrush}==0) style="display:none" #end>
+            <td>防刷请求类型:</td>
+            <td>
+                #set($type1=0)
+                #set($type2=0)
+                #set($type3=0)
+                #set($type4=0)
+                #foreach($type in $!limiterDomain.requestType)
+                    #if($type==1)
+                        #set($type1=1)
+                    #end
+                    #if($type==2)
+                        #set($type2=1)
+                    #end
+                    #if($type==3)
+                        #set($type3=1)
+                    #end
+                    #if($type==4)
+                        #set($type4=1)
+                    #end
+                #end
+                <input type="checkbox" name="requestType" id="requestType" value="1" #if($type1==1) checked="checked" #end />pin
+                <input type="checkbox" name="requestType" id="requestType" value="2" #if($type2==1) checked="checked" #end />ip
+                <input type="checkbox" name="requestType" id="requestType" value="3" #if($type3==1) checked="checked" #end />设备号
+                <input type="checkbox" name="requestType" id="requestType" value="4" #if($type4==1) checked="checked" #end/>平台
+            </td>
+        </tr>
+        <tr class="brushTrClass" #if(${limiterDomain.openBrush}==0) style="display:none" #end>
+            <td>防刷限制时长（分钟）:</td>
+            <td><input type="text" name="time" id="time" placeholder="" value="$!{limiterDomain.time}"/></td>
+        </tr>
+    </table>
+</form>

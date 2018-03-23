@@ -55,6 +55,13 @@ public class ZKCacheClient {
         if (basePath == null) {
             basePath = "/o2o/zk/cache";
         }
+        if(index == null || index.equals("")) {
+            return;
+        }
+
+        if(index.contains(":")) {
+            this.url = index;
+        }
 
         while (StringUtil.isEmpty(this.url)) {
             if (StringUtil.isNotEmpty(this.ip) && StringUtil.isNotEmpty(this.port)) {

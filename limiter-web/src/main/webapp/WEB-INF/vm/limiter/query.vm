@@ -1,0 +1,156 @@
+<script>
+    $(function(){
+        $("#limiterSearchButton").click(function(){
+            showWaiting();
+            $.ajax({
+                url : "/limiter/queryList.xhtml",
+                type : "post",
+                data : $("#form_limiter_searchForm").serialize() ,
+                success : function(data){
+                    hideWaiting();
+                    $("#limiterTbody").html(data);
+                }
+            });
+        });
+        $("#checkAll").click(function(){
+            if($(this).attr("checked") == 'checked' || $(this).attr("checked") == true){// 全选
+                $("input[type='checkbox'][name='checkList']").each(function(){
+                    $(this).attr("checked", true);
+                });
+            } else {// 取消全选
+                $("input[type='checkbox'][name='checkList']").each(function(){
+                    $(this).attr("checked", false);
+                });
+            }
+        });
+        $(".sortTable").click(function(){
+            var table = $(this).parents('table').eq(0);
+            var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+            this.asc = !this.asc;
+            if (!this.asc){
+                rows = rows.reverse();
+                $(".sortTable").removeClass("icon-caret-up icon-caret-down")
+                $(this).addClass("icon-caret-down");
+            }else{
+                $(".sortTable").removeClass("icon-caret-down icon-caret-up")
+                $(this).addClass("icon-caret-up");
+            }
+            table.children('tbody').empty().html(rows);
+
+        });
+        function comparer(index) {
+            return function(a, b) {
+                var valA = getCellValue(a, index), valB = getCellValue(b, index);
+                return $.isNumeric(valA) && $.isNumeric(valB) ?
+                        valA - valB : valA.localeCompare(valB);
+            };
+        }
+        function getCellValue(row, index){
+            return $(row).children('td').eq(index).text();
+        }
+        $("#limiterSearchButton").click();
+       /* $("#limiterAddButton").click(function(){
+            showWaiting();
+            $.ajax({
+                url : "/limiter/add.xhtml",
+                type : "post",
+                success : function(data){
+                    hideWaiting();
+                    $("#main-content").html(data);
+                }
+            });
+        });*/
+    });
+</script>
+<style type="text/css">
+    .icon-caret-up{
+        width:100%;
+    }
+    .icon-caret-down {
+        width:100%;
+    }
+</style>
+<div class="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-cog home-icon"></i>
+            限流配置
+        </li>
+        <li>查询</li>
+    </ul>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <form id="form_limiter_searchForm" >
+                <div class="well h50">
+                    <div class="form-inline col-xs-12 h50">
+                        <div class="form-group">
+                            <label class="control-label textR w70" for="orderId">系统id：</label>
+                            <select id="systemId" name="systemId">
+                            #foreach($system in $systemInfoMap.entrySet())
+                                <option value="$!system.key">$system.value.systemName</option>
+                            #end
+                            </select>
+                           #* <input class="w150 text" id="searchSystemId" name="systemId" value="$!systemId"  onclick="" type="text">*#
+                            <label class="control-label textR w70" for="orderId">限流接口：</label>
+                            <input class="w150 text" id="searchPath" name="path" value="$!path"  onclick="" type="text">
+                        </div>
+                        <button id="limiterSearchButton" class="btn btn-primary btn-sm" style="border-width: 2px;" type="button">
+                            <i class="icon-search"></i> 搜索
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="limiterAddButton" class="btn btn-primary btn-sm" style="border-width: 2px;"  type="button" onclick="limiter.add('/limiter/add.xhtml','新增','/limiter/addSubmit.xhtml')">
+                            <i class="icon-search"></i> 新增
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="limiterBatchAddButton" class="btn btn-primary btn-sm" style="border-width: 2px;"  type="button" onclick="limiter.batchAdd('/limiter/toBatchAdd.xhtml','批量添加','/limiter/batchAddSubmit.xhtml')">
+                            <i class="icon-search"></i> 批量添加
+                        </button>
+                        #*&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="limiterAddButton" class="btn btn-primary btn-sm" style="border-width: 2px;"  type="button" onclick="limiter.delAll('/limiter/deleteAll.xhtml')">
+                            <i class="icon-search"></i> 删除
+                        </button>*#
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="limiterBatchUpdateButton" class="btn btn-primary btn-sm" style="border-width: 2px;"  type="button" onclick="limiter.batchUpdate('/limiter/toBatchUpdate.xhtml','批量修改','/limiter/batchUpdate.xhtml')">
+                            <i class="icon-search"></i> 批量修改
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="limiterBatchDeleteButton" class="btn btn-primary btn-sm" style="border-width: 2px;"  type="button" onclick="limiter.batchDelete('/limiter/batchDelete.xhtml')">
+                            <i class="icon-search"></i> 批量删除
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 表格数据 -->
+                <table class="table table-striped table-bordered table-condensed grid" style="word-break:break-all; word-wrap:break-all;">
+                    <thead>
+                    <tr>
+                        <th class="w30">
+                            <input name="checkAll" type="checkbox" id="checkAll">
+                        </th>
+                        <th>系统id</th>
+                        <th>系统名称</th>
+                        <th class="sortTable" style="cursor:pointer">限流接口</th>
+                        <th >是否开启限流</th>
+                        <th class="sortTable" style="cursor:pointer;">QPS</th>
+                        <th>是否开启防刷</th>
+                        <th>防刷次数（根据用户pin、ip、设备id、平台）</th>
+                        <th>防刷请求类型</th>
+                        <th>防刷限制时长（分钟）</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="limiterTbody">
+                    
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/js/bussiness/limiter/limiter.js" type="text/javascript"></script>
+
+
+

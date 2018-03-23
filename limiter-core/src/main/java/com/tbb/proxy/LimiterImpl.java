@@ -59,7 +59,7 @@ public class LimiterImpl {
             }
             client.init();
             zkCacheOperations = new ZKCacheOperations();
-            zkCacheOperations.setZKCacheClient(client);
+            zkCacheOperations.setZkCacheClient(client);
             logger.info("limiter init success");
         }
     }
